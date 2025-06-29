@@ -1,10 +1,12 @@
 import asyncio
 from bot import run_bot
-from webserver import start_web
-import threading
+from webserver import run_web_app
 
-# Запускаем веб-сервер в отдельном потоке
-threading.Thread(target=start_web).start()
+async def main():
+    await asyncio.gather(
+        run_bot(),
+        run_web_app()
+    )
 
-# Запускаем Telegram-бота
-asyncio.run(run_bot())
+if __name__ == "__main__":
+    asyncio.run(main())
