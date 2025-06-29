@@ -4,8 +4,13 @@ import os
 async def handle(request):
     return web.Response(text="Бот работает ✅")
 
-def start_web():
-    port = int(os.environ.get("PORT", 10000))
+async def run_web_app():
     app = web.Application()
     app.router.add_get("/", handle)
-    web.run_app(app, port=port)
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+
+    port = int(os.environ.get("PORT", 8080))
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
