@@ -13,4 +13,9 @@ async def run_web_app():
 
     port = int(os.environ.get("PORT", 8080))
     site = web.TCPSite(runner, "0.0.0.0", port)
+    print(f"🔌 Web server listening on port {port}")
     await site.start()
+
+    # Поддерживать веб-сервер живым
+    while True:
+        await asyncio.sleep(3600)
