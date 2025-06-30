@@ -1,18 +1,20 @@
 import asyncio
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ParseMode
-from aiogram.filters import Command
+from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties
-import os
 
-API_TOKEN = os.getenv("BOT_TOKEN")
+API_TOKEN = '8043439663:AAFdZDgKwA8lkMD7Y8p_U1pfSdVhvqNxwfI'
+
+# Временное хранилище юзернеймов
+usernames = set()
+
+# Создание бота и диспетчера
 bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
-usernames = set()
-
-@dp.message(Command("start"))
+@dp.message(CommandStart())
 async def start_handler(message: Message):
     await message.answer("Привет! Напиши /join, чтобы добавиться в список.\nКоманда /all — тегнуть всех.")
 
@@ -36,6 +38,8 @@ async def tag_all_handler(message: Message):
     else:
         await message.answer("Список пока пуст.")
 
-async def run_bot():
+async def main():
     await dp.start_polling(bot)
 
+if __name__ == "__main__":
+    asyncio.run(main())
