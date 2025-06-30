@@ -4,7 +4,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties
-
+import os
 API_TOKEN = '8043439663:AAFdZDgKwA8lkMD7Y8p_U1pfSdVhvqNxwfI'
 
 # Временное хранилище юзернеймов
